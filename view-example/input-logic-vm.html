@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Logic</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form>
+        <input id="search-bar" type="text" />
+        <input id="search-button" type="submit" value="Search" disabled />
+      </form>
+    </main>
+
+    <script src="vm.js"></script>
+    <script>
+      function bindInput(vm, prop, inputElement) {
+        // Update input when VM changes
+        vm.subscribe(prop, (value) => {
+          if (inputElement.value !== value) {
+            inputElement.value = value;
+          }
+        });
+
+        // Update VM when input changes
+        inputElement.addEventListener("input", (e) => {
+          vm.set(prop, e.target.value);
+        });
+
+        // Initialize
+        inputElement.value = vm.get(prop) || "";
+      }
+
+      function bindDisabled(vm, prop, buttonElement) {
+        // Update button disabled state when VM changes
+        vm.subscribe(prop, (value) => {
+          buttonElement.disabled = !!value;
+        });
+
+        // Initialize
+        buttonElement.disabled = !!vm.get(prop);
+      }
+    </script>
+    <script>
+      const vm = createViewModel({
+        query: "",
+        isDisabled: true,
+      });
+
+      const input = document.getElementById("search-bar");
+      const button = document.getElementById("search-button");
+
+      // Bind properties
+      bindInput(vm, "query", input);
+      bindDisabled(vm, "isDisabled", button);
+
+      // Example derived logic
+      vm.subscribe("query", (value) => {
+        vm.set("isDisabled", value.trim().length === 0);
+      });
+
+      vm.set("query", "Hello World");
+      if (vm.get("isDisabled") === false) {
+        console.log("Test passed");
+      } else {
+        console.log("Test failed");
+      }
+    </script>
+  </body>
+</html>

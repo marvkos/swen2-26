@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Logic</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form>
+        <input id="search-bar" type="text" />
+        <input id="search-button" type="submit" value="Search" disabled />
+      </form>
+    </main>
+
+    <script>
+      const input = document.getElementById("search-bar");
+      const button = document.getElementById("search-button");
+
+      input.addEventListener("input", () => {
+        const isDisabled = input.value.length === 0;
+
+        button.disabled = isDisabled;
+      });
+    </script>
+  </body>
+</html>
