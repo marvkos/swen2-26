@@ -6,7 +6,9 @@ export class SearchInputViewModel {
 
   isSearchEnabled = computed<boolean>(() => this.query().trim().length > 0);
 
-  setQuery(value: string) {
-    this.query.set(value);
+  search() {
+    console.log(this.query());
+    this.query.set('');
+    // send this to backend
   }
 }
