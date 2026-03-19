@@ -1,0 +1,32 @@
+<section class="movie-list">
+  @if (state.isLoadingMovies()) {
+    <div class="animate-pulse space-y-1">
+      @for (_ of [1, 2, 3, 4, 5, 6]; track $index) {
+        <div class="p-2 border-4 border-yellow-200 bg-black text-white w-64 text-center">...</div>
+      }
+    </div>
+  }
+
+  @if (state.moviesStatus() === 'error') {
+    <p class="error-msg">⚠ Could not reach the galaxy. Check your connection.</p>
+  }
+
+  @if (state.moviesStatus() === 'success') {
+    <ul class="episodes space-y-1">
+      @for (movie of state.movies(); track movie.episodeId) {
+        <li
+          class="episode-card p-2 border-4 border-yellow-200 bg-black text-white flex justify-between cursor-pointer"
+          (click)="selectMovie(movie)"
+          (keydown.enter)="selectMovie(movie)"
+          tabindex="0"
+          role="button"
+          [attr.aria-pressed]="isSelected(movie)"
+        >
+          <span class="ep-numeral">EP {{ episodeLabel(movie.episodeId) }}</span>
+          <span class="ep-title">{{ movie.title }}</span>
+          <span class="ep-year">{{ movie.releaseYear }}</span>
+        </li>
+      }
+    </ul>
+  }
+</section>

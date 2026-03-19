@@ -1,0 +1,28 @@
+<section class="movie-detail border border-black h-full w-xl">
+  @if (!state.hasMovieSelected()) {
+    <div class="empty-state">
+      <p>Select an episode to reveal its characters</p>
+    </div>
+  }
+
+  @if (state.hasMovieSelected()) {
+    @if (state.isLoadingCharacter()) {
+      <div class="people-loading">
+        <div class="spinner"></div>
+        <span>Loading characters…</span>
+      </div>
+    }
+
+    @if (state.characterStatus() === 'error') {
+      <p class="error-msg">⚠ Could not load characters for this film.</p>
+    }
+
+    @if (state.characterStatus() === 'success') {
+      <div class="people-grid grid grid-cols-3">
+        @for (character of state.characters(); track character.name) {
+          <div>{{ character.name }}</div>
+        }
+      </div>
+    }
+  }
+</section>
