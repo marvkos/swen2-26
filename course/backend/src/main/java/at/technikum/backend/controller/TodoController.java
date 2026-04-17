@@ -1,6 +1,7 @@
 package at.technikum.backend.controller;
 
 import at.technikum.backend.dto.TodoDto;
+import at.technikum.backend.service.TodoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,6 +9,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
+
+    private final TodoService todoService;
+
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @PostMapping
     public TodoDto create() {
