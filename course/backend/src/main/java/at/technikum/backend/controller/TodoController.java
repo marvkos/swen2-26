@@ -1,6 +1,7 @@
 package at.technikum.backend.controller;
 
 import at.technikum.backend.dto.TodoDto;
+import at.technikum.backend.entity.Todo;
 import at.technikum.backend.service.TodoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,13 @@ public class TodoController {
     }
 
     @PostMapping
-    public TodoDto create() {
-        return null;
+    public Todo create(@RequestBody TodoDto todoDto) {
+        return todoService.add(todoDto.getName());
     }
 
     @GetMapping("/{id}")
     public TodoDto read(@PathVariable int id) {
-        return new TodoDto(id, "kitchen", false);
+        return new TodoDto("kitchen");
     }
 
     @GetMapping
