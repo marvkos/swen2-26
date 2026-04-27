@@ -9,5 +9,7 @@ public class ShopPublic {
 
     private String id;
     private String name;
+    private String city;
+    private String coordinates;
     private List<ReviewPublic> reviews;
 }

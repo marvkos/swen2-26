@@ -18,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/shops")
 @AllArgsConstructor
+@CrossOrigin
 public class ShopController {
 
     private final ShopMapper shopMapper;

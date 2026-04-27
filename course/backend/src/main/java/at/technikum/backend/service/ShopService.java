@@ -2,6 +2,7 @@ package at.technikum.backend.service;
 
 import at.technikum.backend.dto.in.ReviewCreate;
 import at.technikum.backend.dto.in.ShopCreate;
+import at.technikum.backend.dto.service.Coordinates;
 import at.technikum.backend.entity.Review;
 import at.technikum.backend.exception.EntityNotFoundException;
 import at.technikum.backend.mapper.ReviewMapper;
@@ -21,10 +22,13 @@ public class ShopService {
     private final ShopMapper shopMapper;
     private final ReviewMapper reviewMapper;
     private final ShopRepository shopRepository;
+    private final GeoService geoService;
 
     public Shop create(ShopCreate shopIn) {
         Shop shop = shopMapper.toEntity(shopIn);
-
+        Coordinates coordinates = geoService.findCoordinates(shop.getCity())
+                .orElseThrow(IllegalArgumentException::new);
+        shop.setCoordinates(coordinates.toString());
         return shopRepository.save(shop);
     }
 

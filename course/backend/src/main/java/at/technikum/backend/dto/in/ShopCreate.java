@@ -8,4 +8,7 @@ public class ShopCreate {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String city;
 }

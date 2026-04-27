@@ -21,6 +21,10 @@ public class Shop {
 
     private String name;
 
+    private String city;
+
+    private String coordinates;
+
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
