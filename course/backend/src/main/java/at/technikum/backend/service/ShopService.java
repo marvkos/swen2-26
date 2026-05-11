@@ -10,6 +10,8 @@ import at.technikum.backend.mapper.ShopMapper;
 import at.technikum.backend.entity.Shop;
 import at.technikum.backend.repository.ShopRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
